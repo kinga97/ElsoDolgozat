@@ -18,15 +18,46 @@ function getStudents() {
             szoveg += `<tr><td>${student.nev}</td><td>${student.osztaly}</td></tr>`;
         });
         szoveg += '</table>';
-        document.body.innerHTML = szoveg;
+        document.getElementById('tablazat').innerHTML = szoveg;
 }
 
-// getStudents();
+getStudents();
 
 function feltolt() {
     let nev = document.getElementById('nev').value;
     let osztaly = document.getElementById('osztaly').value;
     console.log(nev + ' ' + osztaly);
+    
+    let nevTomb = [];
+    students.forEach((student) => {
+        nevTomb.push(student.nev);
+    });
+        
+    if (nevTomb.includes(nev)) {
+        window.alert('Ez a név már szerepel a listában!');
+    }
+    else {
+        students.push({'nev' : `${nev}`, 'osztaly' : `${osztaly}`});
+    }
+
+   /* let eldont = false;
+   students.forEach((student) => {
+       if (student.nev == nev)
+       {
+           eldont = true;
+       }
+   });
+   if (eldont) {
+       window.alert('Ez a név már szerepel a listában!');
+   }
+   else {
     students.push({'nev' : `${nev}`, 'osztaly' : `${osztaly}`});
+   }*/
+   
+    getStudents();
+}
+
+function utolsoTorol() {
+    students.pop();
     getStudents();
 }
